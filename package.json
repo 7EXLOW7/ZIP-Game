@@ -1,0 +1,19 @@
+{
+  "name": "tg-game",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "sass": "^1.71.1",
+    "solid-js": "^1.8.15"
+  },
+  "devDependencies": {
+    "vite": "^5.1.4",
+    "vite-plugin-solid": "^2.8.0"
+  }
+}

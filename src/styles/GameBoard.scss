@@ -1,0 +1,207 @@
+@import './variables';
+
+.game-board {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+  background-color: $white;
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.board-row {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+
+.tile {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $background-color;
+  border-radius: 12px;
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: scale(0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &.selected {
+    background-color: $primary-color;
+    color: $white;
+    transform: scale(0.9);
+    box-shadow: 0 0 0 2px $secondary-color;
+  }
+
+  &.special {
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: $white;
+    font-size: 2.4rem;
+    animation: pulse 1.5s infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes match {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.tile.matching {
+  animation: match 0.3s ease-out forwards;
+}
+
+.game-board.zip-board {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  background-color: $white;
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.zip-board .board-row {
+  display: flex;
+  gap: 0;
+  flex: 1;
+}
+
+.zip-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $background-color;
+  border: 1px solid #e0e0e0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #16202a;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+.zip-cell.in-path {
+  background: #ff9100cc;
+  color: #fff;
+  box-shadow: 0 0 0 2px #ff9100;
+}
+
+.zip-cell.current {
+  background: #ff6d00;
+  color: #fff;
+  box-shadow: 0 0 0 3px #ff6d00;
+  z-index: 2;
+}
+
+.zip-cell.error {
+  background: #e53935;
+  color: #fff;
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.zip-win {
+  position: absolute;
+  left: 0; right: 0; top: 40%;
+  text-align: center;
+  font-size: 2rem;
+  color: $primary-color;
+  font-weight: 700;
+  background: rgba(255,255,255,0.95);
+  padding: 1.5rem 0;
+  border-radius: 12px;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.zip-restart {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  background: $primary-color;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba($primary-color, 0.15);
+  transition: background 0.2s;
+}
+
+.zip-restart:hover {
+  background: $secondary-color;
+} 
